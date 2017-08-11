@@ -1,6 +1,6 @@
 cc = gcc
 
-programs = wta computeFF smoothFF synthesize dat2wav
+programs = wta computeFF smoothFF synthesize dat2wav gtes_example
 
 .PHONY: all clean
 	

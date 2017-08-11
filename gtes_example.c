@@ -42,12 +42,15 @@ int nearpow2(int number){
 
 
 int main(int argc, char *argv[]) {
-	char *asciifile;
-	if (argc < 1){
-		printf("specify ASCII data file as an argument");
+	char *asciifile, *csvfile;
+	if (argc < 2){
+		printf("specify ASCII data file as an argument, and a CSV file for output");
 		return 1;
 	}
 	asciifile = argv[1];
+	csvfile = argv[2];
+	FILE *gteptr;
+	gteptr = fopen(csvfile, "w");
    int i,j,k,Ndatos;
 
     //Loads song
@@ -127,18 +130,18 @@ int main(int argc, char *argv[]) {
    normalize(sav, Ndatos, norm);
    inic=ivector(1,100);
    fin=ivector(1,100);
-	printf("type,time\n");	
+   fputs("type,time\n", gteptr);	
    //Syllable beginnings and ends        
    for(i=1;i<POT;i++){ 
        if(norm[i]<0.025 && norm[i+1]>0.025) {
 	       gte1[++temp]=(double) i;
 	       inic[++count]=i;
-	       printf("onset,%lg\n", i / 40e3);
+	       fprintf(gteptr, "onset,%lg\n", i / 40e3);
        }
        if(norm[i]>0.025 && norm[i+1]<0.025) {
 	       gte1[++temp]=(double) i;
 	       fin[count]=i;
-	       printf("offset,%lg\n", i / 40e3);
+	       fprintf(gteptr, "offset,%lg\n", i / 40e3);
        }
    }	
 
@@ -146,7 +149,7 @@ int main(int argc, char *argv[]) {
    //Syllable maximum
    for(i=1;i<=count;i++){
 	   gte2[++temp]=(double) index_maximo(norm,inic[i],fin[i]);
-	   printf("glob_max,%lg\n", gte2[temp] / 40e3);
+	   fprintf(gteptr, "glob_max,%lg\n", gte2[temp] / 40e3);
    }
 
 
@@ -189,7 +192,7 @@ int main(int argc, char *argv[]) {
     	//----------------------------------------------------------------
         if(norm[min_loc]<0.8*norm[max_ant]){
 		gte3[++temp]=gte3a[i];
-	   	printf("sig_min,%lg\n", gte3[temp] / 40e3);
+	   	fprintf(gteptr, "sig_min,%lg\n", gte3[temp] / 40e3);
 	}
 
     }
@@ -217,7 +220,7 @@ int main(int argc, char *argv[]) {
             if((deri[j]>0)&&(deri[j+1]<0))mintemp=j;
         }
         gte4[++temp]=(double)mintemp;
-	printf("last_max,%lg\n", gte4[temp] / 40e3);
+	fprintf(gteptr, "last_max,%lg\n", gte4[temp] / 40e3);
     }
 
     

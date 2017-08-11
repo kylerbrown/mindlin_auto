@@ -7,6 +7,7 @@ base=$(basename -s .wav "$1")
 path=$(dirname "$1")
 outwav="${path}/auto_${base}.wav"
 gestures="${path}/gestures_${base}.csv"
+gtes="${path}/gtes_${base}.csv"
 echo "converting to 44.1kHz"
 sox "${wavfile}" -r 44.1k resample.wav
 echo "saving data values"
@@ -20,3 +21,8 @@ echo "synthesizing song"
 echo "gestures saved to ${gestures}"
 echo "saving a WAV file"
 ./dat2wav song_r3.III.dat "${outwav}" 44100
+echo "resampling to 40kHz"
+sox "${wavfile}" -r 40k resample40.wav
+echo "computing GTEs, saving to ${gtes}"
+./wta resample40.wav > example40.dat
+./gtes_example example40.dat "${gtes}"
