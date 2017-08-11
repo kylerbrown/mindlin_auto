@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
 	}
 	if(max_ant && max_post) 
     	//----------------------------------------------------------------
-        if(norm[min_loc]<0.8*norm[max_ant]){
+        if(min_loc > 0 && min_loc < Ndatos && norm[min_loc]<0.8*norm[max_ant]){
 		gte3[++temp]=gte3a[i];
 	   	fprintf(gteptr, "sig_min,%lg\n", gte3[temp] / 40e3);
 	}
@@ -208,7 +208,10 @@ int main(int argc, char *argv[]) {
         }
         if(min_ant || min_post) 
             //----------------------------------------------------------------
-             if(norm[max_loc]>2.6*norm[min_ant] || norm[max_loc]>2.6*norm[min_post]) gte5[++temp]=gte3b[i];
+             if( (min_loc > 0 && min_loc < Ndatos) 
+			     && (norm[max_loc]>2.6*norm[min_ant] || norm[max_loc]>2.6*norm[min_post])){
+		     gte5[++temp]=gte3b[i];
+	     }
     }
 
     //Last maximum
