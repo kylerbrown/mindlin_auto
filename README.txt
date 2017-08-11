@@ -1,3 +1,15 @@
+Updates Kyler Brown August 2017
+
+Setup:
+Compile the code with
+$ make
+
+Usage:
+$ ./run.sh FILE.wav
+
+This will create a synthetic song file called auto_FILE.wav
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Birdsong synthesis software suite %
 %          September 2015           %
