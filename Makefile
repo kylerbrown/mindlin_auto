@@ -13,13 +13,13 @@ clean :
 	
 
 computeFF : computeFF.c realft.c four1.c nrutil.c
-	$(cc) $< -lm -o $@ $(wordlist 2, 4, $^)
+	$(cc) $< -lm -O3 -o $@ $(wordlist 2, 4, $^)
 
 synthesize : synthesize.c rk4.c
-	$(cc) $^ -lm -o $@
+	$(cc) $^ -lm -O3 -o $@
 
 dat2wav : dat2wav.c
-	$(cc) -std=c99 $^ -lm -o $@
+	$(cc) -std=c99 $^ -lm -O3 -o $@
 
 % : %.c
-	$(cc) $< -lm -o $@
+	$(cc) $< -lm -O3 -o $@

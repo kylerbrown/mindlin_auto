@@ -10,10 +10,11 @@ void finch(int size, char *salida, char *envolvente);
 
 int main(int argc, char *argv[]){
   int size_pitch_list;
-  char *entrada; char *salida;char *envolvente;
+  char *entrada; char *salida; char *envolvente;
+  char *gestures;
 
-if(argc < 3){
-    printf("\nUsage:\n ./synthesize [Inputfile1] [Outputfile] [Inputfile2]\n[Inputfile1]: smooth_FF output file ('pitch list')\n[Outputfile]: Program output. Synthesized song \n[Inputfile3]: envelope.dat, Song envelope obtained by 'compute_FF'\n");
+if(argc < 4){
+    printf("\nUsage:\n ./synthesize [Inputfile1] [Outputfile] [Inputfile2]\n[Inputfile1]: smooth_FF output file ('pitch list')\n[Outputfile]: Program output. Synthesized song \n[Inputfile3]: envelope.dat, Song envelope obtained by 'compute_FF'\n [Inputfile4]: a csv of the gestures (alpha and beta over time)");
     return 1;
   }
 
@@ -21,6 +22,7 @@ if(argc < 3){
  entrada = argv[1];
  salida = argv[2];
  envolvente = argv[3];
+ gestures = argv[4];
 
  size_pitch_list =  filesize(entrada, 3)-1;
 
@@ -39,7 +41,7 @@ double datos4[12500];
  double aproximacion4[size_pitch_list];
  double pitch_time[size_pitch_list];
  double pitch_value[size_pitch_list];
-	 FILE *ptr1, *ptr2, *ptr3;
+	 FILE *ptr1, *ptr2, *ptr3, *gesture_ptr;
 
 
 
@@ -47,6 +49,7 @@ double datos4[12500];
 ptr1=fopen("OEC.new.dat","r");
 ptr2 = fopen(entrada,"r");
 ptr3 = fopen(salida,"w");
+gesture_ptr = fopen(gestures, "w");
 
 for(i=0;i<12500;i++){
 fscanf(ptr1,"%lg %lg %lg %lg",&datos1[i],&datos2[i],&datos3[i],&datos4[i]);
@@ -83,11 +86,19 @@ for(i=0;i<size_pitch_list;i++){
 
 }	
 
+// write gestures
+fputs("time,alpha,beta\n", gesture_ptr);
+
+for(i=0;i<size_pitch_list;i++){
+	fprintf(gesture_ptr, "%lg,%lg,%lg\n", pitch_time[i], aproximacion1[i], aproximacion2[i]);
+}
+fclose(gesture_ptr);
 
 for(i=0;i<size_pitch_list;i++) fprintf(ptr3,"%lg\t%lg\n",pitch_time[i], aproximacion2[i]);
  fclose(ptr3);
  finch(size_pitch_list, salida, envolvente);
 
+return 0;
 }
 //------------------------------------------------------------------
 

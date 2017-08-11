@@ -3,14 +3,20 @@ set -euo pipefail
 IFS=$'\n\t'
 
 wavfile="$1"
-base="${wavfile%.*}"
-outwave="auto_$1"
-gestures="gestures_${base}.csv"
-echo "${wavfile} ${outwave} ${gestures}"
+base=$(basename -s .wav "$1")
+path=$(dirname "$1")
+outwav="${path}/auto_${base}.wav"
+gestures="${path}/gestures_${base}.csv"
+echo "converting to 44.1kHz"
 sox "${wavfile}" -r 44.1k resample.wav
+echo "saving data values"
 ./wta resample.wav > example.dat
+echo "computing fundamental frequency"
 ./computeFF $(wc -l example.dat) example.dat > r3.I.dat
+echo "smoothing fundamental frequency"
 ./smoothFF r3.I.dat > r3.II.dat
-./synthesize r3.II.dat r3.III.dat env_example.dat
-echo "hello"
-./dat2wav song_r3.III.dat "auto_${base}.wav" 44100
+echo "synthesizing song"
+./synthesize r3.II.dat r3.III.dat env_example.dat "${gestures}"
+echo "gestures saved to ${gestures}"
+echo "saving a WAV file"
+./dat2wav song_r3.III.dat "${outwav}" 44100

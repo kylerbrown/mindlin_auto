@@ -1,5 +1,9 @@
 Updates Kyler Brown August 2017
 
+Requirements:
++ Gnu C compliler (gcc)
++ SoX
+
 Setup:
 Compile the code with
 $ make

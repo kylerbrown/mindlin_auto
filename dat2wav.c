@@ -133,6 +133,6 @@ fclose(out);
 
 printf(" %d bytes written to %s\n",size, output);
 
-return 1;
+return 0;
 
 }
