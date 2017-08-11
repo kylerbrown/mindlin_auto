@@ -18,6 +18,9 @@ Usage:
 	$ ./run.sh FILE.wav
 	(you must run the script from within the code folder)
 
+Example:
+	$ ./run example/example.wav
+
 Output files:
 	+ auto_FILE.wav -- the synthetic song
 	+ gestures_FILE.csv -- the alpha and beta forcing parameters that generate the sound
