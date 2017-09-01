@@ -1,9 +1,18 @@
+Automatic Synthetic Song Reconstruction Software
+
+Citation:
+	Boari, Santiago, Yonatan Sanz Perl, Ana Amador, Daniel Margoliash, and Gabriel B. Mindlin. 2015. “Automatic Reconstruction of Physiological Gestures Used in a Model of Birdsong Production.” Journal of Neurophysiology 114 (5): 2912–22. doi:10.1152/jn.00385.2015.
+
+
+Original Source: http://www.lsd.df.uba.ar/
+
 Updates Kyler Brown August 2017
 	No changes to fundamental algorithms, just a few conviences:
 	+ A Makefile
 	+ Runs both synthesis and GTE extraction
 	+ Outputs CSVs for both the GTEs and the gestures themselves
 	+ Resamples as appropriate via SoX (synthesis requires 44.1kHz, GTE extraction uses 40kHz)
+	+ minor bugfixes
 	
 
 Requirements:
