@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 
-main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
   short *ti;
   char temp[100];
   long i,ni;
@@ -17,7 +17,7 @@ main(int argc, char *argv[]){
   
   if(argc < 2){
     printf("You must give input soundfile \n");
-    exit(-1);
+    return(-1);
   }
 		
 
@@ -35,4 +35,5 @@ main(int argc, char *argv[]){
    
   for(i=22;i<ni;i++) 
     printf("%d\n",ti[i]);
+  return 0;
 }

@@ -62,6 +62,7 @@ frec[i]=sumafrec/(contador*1.);
 printf("%d\t%lg\t%lg\n",i,tiempot[i],frec[i]); 
     
 }
+return 0;
 }
 //------------------------------------------------------------------//
 

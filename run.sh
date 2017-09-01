@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 wavfile="$1"
-base=$(basename -s .wav "$1")
+base=$(basename "$1" .wav)
 path=$(dirname "$1")
 outwav="${path}/auto_${base}.wav"
 gestures="${path}/gestures_${base}.csv"
